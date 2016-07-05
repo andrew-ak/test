@@ -4,11 +4,11 @@ namespace Multiple\Backend\Controllers;
 
 use Phalcon\Mvc\Controller;
 
-class LoginController extends Controller
+class IndexController extends Controller
 {
 
 	public function indexAction()
 	{
-		$this->view->disable();
+		return $this->dispatcher->forward('login');
 	}
 }
