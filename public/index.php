@@ -42,7 +42,7 @@ try {
 	 */
 	$di->set('url', function() {
 		$url = new \Phalcon\Mvc\Url();
-		$url->setBaseUri('/mvc/multiple-shared-layouts/');
+		$url->setBaseUri('/');
 		return $url;
 	});
 
