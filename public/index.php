@@ -1,67 +1,85 @@
 <?php
 
-use Phalcon\Mvc\Router;
-use Phalcon\Mvc\View;
-use Phalcon\Mvc\Application;
-use Phalcon\DI\FactoryDefault;
-
 error_reporting(E_ALL);
 
-$di = new FactoryDefault();
+try {
 
-//Registering a router
-$di->set('router', function(){
+	/**
+	 * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
+	 */
+	$di = new \Phalcon\DI\FactoryDefault();
 
-	$router = new Router();
+	/**
+	 * Registering a router
+	 */
+	$di['router'] = function() {
 
-	$router->setDefaultModule("frontend");
+		$router = new \Phalcon\Mvc\Router(false);
 
-	$router->add('/:controller/:action', array(
-		'module' => 'frontend',
-		'controller' => 1,
-		'action' => 2,
+		$router->add('/admin', array(
+			'module' => 'backend',
+			'controller' => 'index',
+			'action' => 'index'
+		));
+
+		$router->add('/index', array(
+			'module' => 'frontend',
+			'controller' => 'index',
+			'action' => 'index'
+		));
+
+		$router->add('/', array(
+			'module' => 'frontend',
+			'controller' => 'index',
+			'action' => 'index'
+		));
+
+		return $router;
+	};
+
+	/**
+	 * The URL component is used to generate all kind of urls in the application
+	 */
+	$di->set('url', function() {
+		$url = new \Phalcon\Mvc\Url();
+		$url->setBaseUri('/mvc/multiple-shared-layouts/');
+		return $url;
+	});
+
+	/**
+	 * Start the session the first time some component request the session service
+	 */
+	$di->set('session', function() {
+		$session = new \Phalcon\Session\Adapter\Files();
+		$session->start();
+		return $session;
+	});
+
+	/**
+	 * Handle the request
+	 */
+	$application = new \Phalcon\Mvc\Application();
+
+	$application->setDI($di);
+
+	/**
+	 * Register application modules
+	 */
+	$application->registerModules(array(
+		'frontend' => array(
+			'className' => 'Modules\Frontend\Module',
+			'path' => '../apps/frontend/Module.php'
+		),
+		'backend' => array(
+			'className' => 'Modules\Backend\Module',
+			'path' => '../apps/backend/Module.php'
+		)
 	));
 
-	$router->add("/login", array(
-		'module' => 'backend',
-		'controller' => 'login',
-		'action' => 'index',
-	));
+	echo $application->handle()->getContent();
 
-	$router->add("/admin/products/:action", array(
-		'module' => 'backend',
-		'controller' => 'products',
-		'action' => 1,
-	));
-
-	$router->add("/products/:action", array(
-		'module' => 'frontend',
-		'controller' => 'products',
-		'action' => 1,
-	));
-
-	return $router;
-});
-
-//Registering a shared view component
-$di->set('view', function() {
-	$view = new View();
-	$view->setViewsDir('../apps/common/views/');
-	return $view;
-});
-
-$application = new Application($di);
-
-//Register the installed modules
-$application->registerModules(array(
-	'frontend' => array(
-		'className' => 'Multiple\Frontend\Module',
-		'path' => '../apps/modules/frontend/Module.php'
-	),
-	'backend' => array(
-		'className' => 'Multiple\Backend\Module',
-		'path' => '../apps/modules/backend/Module.php'
-	)
-));
-
-echo $application->handle()->getContent();
+} catch (Phalcon\Exception $e) {
+	echo $e->getMessage();
+} catch (PDOException $e){
+	echo $e->getMessage();
+}
