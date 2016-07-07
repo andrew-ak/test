@@ -16,6 +16,17 @@ try {
 
 		$router = new \Phalcon\Mvc\Router(false);
 
+		$router->add('/admin/:controller', array(
+        	'namespace'  => 'Backend\Controllers',
+			'module' => 'backend',
+			'controller' => 1,
+			'action' => 'index'
+		));
+		$router->add('/admin/:controller/:action', array(
+			'module' => 'backend',
+			'controller' => 1,
+			'action' => 2
+		));
 		$router->add('/admin', array(
 			'module' => 'backend',
 			'controller' => 'index',
@@ -27,22 +38,40 @@ try {
 			'controller' => 'index',
 			'action' => 'index'
 		));
-
 		$router->add('/', array(
 			'module' => 'frontend',
 			'controller' => 'index',
 			'action' => 'index'
 		));
 
+		$router->add('/:controller', array(
+			'module' => 'frontend',
+			'controller' => 1,
+			'action' => 'index'
+		));
+		$router->add('/:controller/:action', array(
+			'module' => 'frontend',
+			'controller' => 1,
+			'action' => 2
+		));
+
+		$router->handle('/admin');
+		//Check if some route was matched
+		if ($router->wasMatched()) {
+		    echo 'Module: ', $router->getModuleName(), '<br>';
+		    echo 'Controller: ', $router->getControllerName(), '<br>';
+		    echo 'Action: ', $router->getActionName(), '<br>';
+		} else {
+		    echo 'The route wasn\'t matched by any route<br>';
+		}
 		return $router;
 	};
-
 	/**
 	 * The URL component is used to generate all kind of urls in the application
 	 */
 	$di->set('url', function() {
 		$url = new \Phalcon\Mvc\Url();
-		$url->setBaseUri('/mvc/multiple-shared-layouts/');
+		$url->setBaseUri('/');
 		return $url;
 	});
 
