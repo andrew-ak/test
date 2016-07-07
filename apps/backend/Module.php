@@ -52,6 +52,20 @@ class Module
 			return $view;
 		};
 
+		$di->set('assets', function() use ($config) {
+		    $assets = new \Phalcon\Assets\Manager();
+		    $assets
+		    	->collection('footerJS')
+		            ->addJs('//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', false)
+		            ->addJs('js/bootstrap.min.js', false)
+		            ->addJs('js/admin/docs.min.js')
+		            ;
+		    $assets
+			    ->collection('headerCss')
+				->addCss('css/bootstrap.min.css')
+				->addCss('css/dashboard.css');
+		    return $assets;
+        });
 		/**
 		 * Database connection is created based in the parameters defined in the configuration file
 		 */

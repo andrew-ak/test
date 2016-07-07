@@ -38,35 +38,6 @@ class Module
 			return $dispatcher;
 		};
 
-		$di['router'] = function() {
-
-			$router = new \Phalcon\Mvc\Router(false);
-
-			$router->add('/index', array(
-				'module' => 'frontend',
-				'controller' => 'index',
-				'action' => 'index'
-			));
-
-			$router->add('/', array(
-				'module' => 'frontend',
-				'controller' => 'index',
-				'action' => 'index'
-			));
-			$router->add('/:controller', array(
-				'module' => 'frontend',
-				'controller' => 1,
-				'action' => 'index'
-			));
-			$router->add('/:controller/:action', array(
-				'module' => 'frontend',
-				'controller' => 1,
-				'action' => 2
-			));
-
-			return $router;
-		};
-
 		/**
 		 * Setting up the view component
 		 */
@@ -79,7 +50,19 @@ class Module
 
 			return $view;
 		};
-
+		$di->set('assets', function() use ($config) {
+		    $assets = new \Phalcon\Assets\Manager();
+		    $assets
+		    	->collection('footerJS')
+		            ->addJs('//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', false)
+		            ->addJs('js/bootstrap.min.js', false)
+		            ;
+		    $assets
+			    ->collection('headerCss')
+				->addCss('css/bootstrap.min.css')
+				->addCss('css/sticky-footer-navbar.css');
+		    return $assets;
+        });
 		/**
 		 * Database connection is created based in the parameters defined in the configuration file
 		 */

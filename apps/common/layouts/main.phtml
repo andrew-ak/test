@@ -2,8 +2,7 @@
 <html>
 	<head>
 		<title>Frontend Layout</title>
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/sticky-footer-navbar.css" rel="stylesheet">
+        <?php $this->assets->outputCss('headerCss') ?>
 	</head>
 	<body>
 		<!-- Fixed navbar -->
@@ -47,7 +46,7 @@
 				<p class="text-muted">Place sticky footer content here.</p>
 			</div>
 		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
+
+        <?php $this->assets->outputJs('footerJS') ?>
 	</body>
 </html>

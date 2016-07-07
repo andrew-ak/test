@@ -14,10 +14,16 @@ try {
 	 */
 	$di['router'] = function() {
 
-		$router = new \Phalcon\Mvc\Router(false);
+		$router = new \Phalcon\Mvc\Router(true);
+
+		$router->setDefaultModule("frontend");
+		$router->add('/admin', array(
+			'module' => 'backend',
+			'controller' => 'index',
+			'action' => 'index'
+		));
 
 		$router->add('/admin/:controller', array(
-        	'namespace'  => 'Backend\Controllers',
 			'module' => 'backend',
 			'controller' => 1,
 			'action' => 'index'
@@ -26,22 +32,6 @@ try {
 			'module' => 'backend',
 			'controller' => 1,
 			'action' => 2
-		));
-		$router->add('/admin', array(
-			'module' => 'backend',
-			'controller' => 'index',
-			'action' => 'index'
-		));
-
-		$router->add('/index', array(
-			'module' => 'frontend',
-			'controller' => 'index',
-			'action' => 'index'
-		));
-		$router->add('/', array(
-			'module' => 'frontend',
-			'controller' => 'index',
-			'action' => 'index'
 		));
 
 		$router->add('/:controller', array(
@@ -55,15 +45,17 @@ try {
 			'action' => 2
 		));
 
-		$router->handle('/admin');
-		//Check if some route was matched
-		if ($router->wasMatched()) {
-		    echo 'Module: ', $router->getModuleName(), '<br>';
-		    echo 'Controller: ', $router->getControllerName(), '<br>';
-		    echo 'Action: ', $router->getActionName(), '<br>';
-		} else {
-		    echo 'The route wasn\'t matched by any route<br>';
-		}
+		$router->add('/index', array(
+			'module' => 'frontend',
+			'controller' => 'index',
+			'action' => 'index'
+		));
+
+		$router->add('/', array(
+			'module' => 'frontend',
+			'controller' => 'index',
+			'action' => 'index'
+		));
 		return $router;
 	};
 	/**

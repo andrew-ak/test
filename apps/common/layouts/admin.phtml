@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Admin Layout</title>
-		<link href="../css/admin/dashboard.css" rel="stylesheet">
+        <?php $this->assets->outputCss('headerCss') ?>
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -14,7 +14,7 @@
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
 	          </button>
-	          <a class="navbar-brand" href="#">Project name</a>
+	          <a class="navbar-brand" href="#">Daddy DOOR</a>
 	        </div>
 	        <div class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav navbar-right">
@@ -54,9 +54,8 @@
 		        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 					<?php echo $this->getContent(); ?>
 				</div>
+			</div>
 		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="../js/bootstrap.min.js"></script>
-		<script src="../js/admin/docs.min.js"></script>
+        <?php $this->assets->outputJs('footerJS') ?>
 	</body>
 </html>
