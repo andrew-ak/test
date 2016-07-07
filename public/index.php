@@ -14,26 +14,9 @@ try {
 	 */
 	$di['router'] = function() {
 
-		$router = new \Phalcon\Mvc\Router(true);
+		$router = new \Phalcon\Mvc\Router(false);
 
 		$router->setDefaultModule("frontend");
-		$router->add('/admin', array(
-			'module' => 'backend',
-			'controller' => 'index',
-			'action' => 'index'
-		));
-
-		$router->add('/admin/:controller', array(
-			'module' => 'backend',
-			'controller' => 1,
-			'action' => 'index'
-		));
-		$router->add('/admin/:controller/:action', array(
-			'module' => 'backend',
-			'controller' => 1,
-			'action' => 2
-		));
-
 		$router->add('/:controller', array(
 			'module' => 'frontend',
 			'controller' => 1,
@@ -56,6 +39,24 @@ try {
 			'controller' => 'index',
 			'action' => 'index'
 		));
+		$router->add('/admin', array(
+			'module' => 'backend',
+			'controller' => 'index',
+			'action' => 'index'
+		));
+
+		$router->add('/admin/:controller', array(
+			'module' => 'backend',
+			'controller' => 1,
+			'action' => 'index'
+		));
+		$router->add('/admin/:controller/:action', array(
+			'module' => 'backend',
+			'controller' => 1,
+			'action' => 2
+		));
+		//$router->handle('/admin');
+
 		return $router;
 	};
 	/**
