@@ -6,6 +6,7 @@ use Phalcon\Loader;
 use Phalcon\Mvc\View;
 use Phalcon\DiInterface;
 use Phalcon\Mvc\Dispatcher;
+use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Db\Adapter\Pdo\Mysql as MySQLAdapter;
 
 class Module
@@ -16,18 +17,28 @@ class Module
 
 		$loader = new Loader();
 
+		$config = include __DIR__ . "/config/config.php";
+		$loader->registerDirs(
+		    array(
+		        $config->application->controllersDir,
+		        $config->application->modelsDir,
+		        //$config->application->libraryDir,
+		        $config->application->pluginsDir
+		    )
+		);
 		$loader->registerNamespaces(array(
 			'Modules\Backend\Controllers' => __DIR__ . '/controllers/',
 			'Modules\Backend\Models' => __DIR__ . '/models/',
+			'Modules\Backend\Plugin' => __DIR__ . '/pugins/',
 		));
-
 		$loader->register();
 	}
 
 	public function registerServices(DiInterface $di)
 	{
-
-		/**
+		$debug = new \Phalcon\Debug();
+		$debug->listen();
+		/*
 		 * Read configuration
 		 */
 		$config = include __DIR__ . "/config/config.php";
@@ -36,8 +47,7 @@ class Module
 			$dispatcher = new Dispatcher();
 			$dispatcher->setDefaultNamespace("Modules\Backend\Controllers");
 			return $dispatcher;
-		};
-
+		}; 
 		/**
 		 * Setting up the view component
 		 */
@@ -45,12 +55,29 @@ class Module
 
 			$view = new View();
 
+			$view->registerEngines(array(
+				".volt" => 'volt'
+			));
 			$view->setViewsDir(__DIR__ . '/views/');
 			$view->setLayoutsDir('../../common/layouts/');
 			$view->setTemplateAfter('admin');
 
 			return $view;
 		};
+
+		$di->set('volt', function ($view, $di) {
+
+			$volt = new VoltEngine($view, $di);
+
+			$volt->setOptions(array(
+				"compiledPath" => __DIR__ . "/cache/volt/"
+			));
+
+			$compiler = $volt->getCompiler();
+			$compiler->addFunction('is_a', 'is_a');
+
+			return $volt;
+		}, true);
 
 		$di->set('assets', function() use ($config) {
 		    $assets = new \Phalcon\Assets\Manager();

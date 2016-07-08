@@ -6,11 +6,12 @@ return new \Phalcon\Config(array(
 		'host'     => 'localhost',
 		'username' => 'root',
 		'password' => '',
-		'name'     => 'test',
+		'name'     => 'phalcon_multi',
 	),
 	'application' => array(
 		'controllersDir' => __DIR__ . '/../controllers/',
 		'modelsDir' => __DIR__ . '/../models/',
 		'viewsDir' => __DIR__ . '/../views/',
+		'pluginsDir' => __DIR__ . '/../plugins/',
 	)
 ));
