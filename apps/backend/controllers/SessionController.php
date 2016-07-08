@@ -50,7 +50,7 @@ class SessionController extends ControllerBase
             $password = $this->request->getPost('password');
 
             $user = Employee::findFirst(array(
-                "(email = :email:) AND passwd = :password: AND active = '1'",
+                "email = :email: AND passwd = :password: AND active = '1'",
                 'bind' => array('email' => $email, 'password' => sha1($password))
             ));
 
