@@ -7,6 +7,7 @@
  */
 namespace Modules\Backend\Controllers;
 
+use Phalcon\Tag as Tag;
 use Phalcon\Mvc\Model;
 use Modules\Backend\Models\Employee as Employee;
 class SessionController extends ControllerBase
@@ -57,13 +58,13 @@ class SessionController extends ControllerBase
             if ($user != false) {
                 $this->_registerSession($user);
                 $this->flash->success('Welcome ' . $user->name);
-                return $this->forward('admin/news');
+                return $this->forward('news');
             }
 
             $this->flash->error('Wrong email/password');
         }
 
-        return $this->forward('admin/session');
+        return $this->forward('session');
     }
 
     /**
