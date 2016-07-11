@@ -6,5 +6,8 @@ use Phalcon\Mvc\Model\Validator\Uniqueness;
 
 class News extends Model
 {
-
+    public function initialize()
+    {
+        $this->setSource("ps_news");
+    }
 }

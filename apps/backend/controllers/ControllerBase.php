@@ -10,7 +10,8 @@ class ControllerBase extends Controller
 {
 	public function initialize()
 	{
-		# code...
+        $this->tag->appendTitle('DDoor:Admin| ');
+        $this->view->setTemplateAfter('admin');
 	}
 	public function index()
 	{

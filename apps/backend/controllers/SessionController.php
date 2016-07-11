@@ -64,7 +64,7 @@ class SessionController extends ControllerBase
             $this->flash->error('Wrong email/password');
         }
 
-        return $this->forward('session');
+        return $this->forward('news');
     }
 
     /**
