@@ -1,9 +1,10 @@
 <div class="col-sm-3 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
-        <li class="active"><a href="/admin/news">News</a>
+        <li class="active dropdown open">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="/admin/news">News</a>
             <ul class="dropdown-menu">
-                <li class="dropdown-submenu">show all</li>
-                <li class="dropdown-submenu">add</li>
+                <li class=""><a>show all</a></li>
+                <li class=""><a>add</a></li>
             </ul>
         </li>
     </ul>
