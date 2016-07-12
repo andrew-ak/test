@@ -84,13 +84,18 @@ class Module
 		    $assets
 		    	->collection('footerJS')
 		            ->addJs('//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', false)
-		            ->addJs('js/bootstrap.min.js', false)
+		            ->addJs('js/bootstrap.min.js')
 		            ->addJs('js/admin/docs.min.js')
+		            ->addJs('js/plugins/morris/raphael.min.js')
+		            ->addJs('js/plugins/morris/morris.min.js')
+		            ->addJs('js/plugins/morris/morris-data.js')
 		            ;
 		    $assets
 			    ->collection('headerCss')
-				->addCss('css/bootstrap.min.css')
-				->addCss('css/dashboard.css');
+					->addCss('css/bootstrap.min.css')
+					->addCss('css/sb-admin.css')
+					->addCss('css/plugins/morris.css')
+					->addCss('font-awesome/css/font-awesome.min.css');
 		    return $assets;
         });
 		/**
