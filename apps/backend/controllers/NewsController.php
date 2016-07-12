@@ -25,7 +25,7 @@ class NewsController extends ControllerBase
 
     }
 
-    public function addAction()
+    public function addNewsAction()
     {
 
     }
