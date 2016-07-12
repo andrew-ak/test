@@ -1,4 +1,5 @@
 <div class="col-sm-3 col-md-2 sidebar">
+    <?php echo $active; ?>
     <ul class="nav nav-sidebar">
         <li class="active dropdown open">
             <a class="dropdown-toggle" data-toggle="dropdown" href="/admin/news">News</a>

@@ -6,5 +6,6 @@ class MenuController extends ControllerBase
 {
 	public function indexAction()
 	{
+		$this->view->setVar("active", "news");
 	}
 }
