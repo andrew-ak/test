@@ -30,6 +30,7 @@ class Module
 			'Modules\Backend\Controllers' => __DIR__ . '/controllers/',
 			'Modules\Backend\Models' => __DIR__ . '/models/',
 			'Modules\Backend\Plugin' => __DIR__ . '/pugins/',
+			'Modules\Backend\Forms'       => $config->application->formsDir,
 		));
 		$loader->register();
 	}
@@ -89,6 +90,7 @@ class Module
 		            ->addJs('js/plugins/morris/raphael.min.js')
 		            ->addJs('js/plugins/morris/morris.min.js')
 		            ->addJs('js/plugins/morris/morris-data.js')
+		            ->addJs('//cdn.tinymce.com/4/tinymce.min.js', false)
 		            ;
 		    $assets
 			    ->collection('headerCss')

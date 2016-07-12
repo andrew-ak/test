@@ -13,5 +13,6 @@ return new \Phalcon\Config(array(
 		'modelsDir' => __DIR__ . '/../models/',
 		'viewsDir' => __DIR__ . '/../views/',
 		'pluginsDir' => __DIR__ . '/../plugins/',
+		'formsDir' => __DIR__ . '/../forms/',
 	)
 ));

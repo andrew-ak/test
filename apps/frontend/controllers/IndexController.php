@@ -9,4 +9,9 @@ class IndexController extends ControllerBase
     {
 
     }
+
+    public function route404Action()
+    {
+
+    }
 }
