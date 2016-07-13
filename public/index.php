@@ -15,7 +15,8 @@ try {
 	$di['router'] = function() {
 
 		$router = new \Phalcon\Mvc\Router(false);
-
+		// Конечные косые черты будут автоматически удалены
+		$router->removeExtraSlashes(true);
 		$router->setDefaultModule("frontend");
 		$router->add('/:controller', array(
 			'module' => 'frontend',
@@ -55,8 +56,13 @@ try {
 			'controller' => 1,
 			'action' => 2
 		));
-		//$router->handle('/admin');
-
+		$router->notFound(
+				array(
+						"controller" => "index",
+						"action"     => "route404"
+				)
+		);
+		$router->handle();
 		return $router;
 	};
 	/**
@@ -97,7 +103,6 @@ try {
 			'path' => '../apps/backend/Module.php'
 		)
 	));
-
 	echo $application->handle()->getContent();
 
 } catch (Phalcon\Exception $e) {
