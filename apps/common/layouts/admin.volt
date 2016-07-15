@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-    <script>tinymce.init({ selector:'textarea' });</script>
     {{ get_title() }}
     <?php $this->assets->outputCss('headerCss') ?>
+    <?php $this->assets->outputJs('footerJS') ?>
 </head>
 <body>
 <div id="wrapper">
@@ -135,6 +134,5 @@
     </div>
     </div>
 </div>
-<?php $this->assets->outputJs('footerJS') ?>
 </body>
 </html>

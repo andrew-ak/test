@@ -1,4 +1,6 @@
 
+<script type="text/javascript" src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
 <h1 class="page-header">Add News</h1>
 <div>
     <label for="active">Active: </label>
@@ -22,7 +24,5 @@
 </div>
 <div>
     <label for="content">Content:</label>
-    {{ form.render("content") }}
+    <textarea>Easy (and free!) You should check out our premium features.</textarea>
 </div>
-
-<textarea>Easy (and free!) You should check out our premium features.</textarea>
